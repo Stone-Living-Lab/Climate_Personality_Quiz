@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Discover Your Climate Personality</title>
+<style>
+:root{--deep:#14635B;
+      --teal:#2EBBAD;
+      --sea:#d9efeb;
+      --sand:#f5f0e5;
+      --ink:#002366;
+      --coral:#f29a76;
+      --sun:#f5d66d;
+      --sage:#b9d5b0;
+      --paper:#fffdf7}
+
+*{box-sizing:border-box}
+
+body{margin:0;
+    background:var(--sand);
+    color:var(--ink);
+    font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    line-height:1.5}
+
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+/* Header bar */
+.site-header {
+  display: flex;
+  align-items: left;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 5px 1%;
+  background: #14635B;
+  color: white;
+  min-height: 76px;
+  box-sizing: border-box;
+}
+
+/* Logo and website title */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: white;
+  text-decoration: none;
+  min-width: 0;
+}
+
+.site-logo {
+  display: block;
+  width: auto;
+  height: 48px;
+  max-width: 160px;
+  object-fit: contain;
+}
+
+.site-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Short tagline on the right */
+.header-tagline {
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  text-align: right;
+}
+
+/* Mobile layout */
+@media (max-width: 600px) {
+  .site-header {
+    padding: 12px 16px;
+    gap: 10px;
+  }
+
+  .site-logo {
+    height: 36px;
+    max-width: 100px;
+  }
+
+  .brand {
+    gap: 9px;
+  }
+
+  .site-title {
+    font-size: 1rem;
+  }
+
+  .header-tagline {
+    display: none;
+  }
+}
+
+
+.brand{font-weight:800;
+      letter-spacing:.04em}
+
+.brand small{display:block;
+             font-weight:500;
+             font-size:.75rem;
+             letter-spacing:.12em;
+             text-transform:uppercase;
+             color:#c6e5de}
+
+.header-tag{font-size:.9rem;
+            color:#d9efeb}
+
+.hero{background:linear-gradient(120deg,#14635B,rgba(56, 165, 156, 0.82)),url('images/main_photo.png') center/cover;
+     color:#fff;
+     padding:clamp(42px,8vw,92px) 20px;
+     text-align:center}
+     
+.hero-inner{max-width:850px;
+            margin:auto}
+            
+.eyebrow{text-transform:uppercase;
+        letter-spacing:.16em;
+        font-weight:800;
+        font-size:.85rem;
+        color:#fff}
+
+.hero h1{font-size:clamp(2.2rem,6vw,4.6rem);line-height:1.04;margin:14px 0 20px}
+
+.hero p{font-size:clamp(1rem,2vw,1.2rem);max-width:670px;margin:0 auto 26px;color:#eff9f6}
+
+.button{border:0;border-radius:999px;padding:12px 22px;font-weight:800;background:#fff;color:var(--ink);box-shadow:0 4px 0 rgba(0,0,0,.12);transition:transform .15s}
+.button:hover{transform:translateY(-2px)}
+
+.button.secondary{background:#fff;
+                  color:var(--ink);
+                  border:2px solid #c8dfd8;
+                  box-shadow:none}
+
+.button:disabled{opacity:.45;
+                cursor:not-allowed;
+                transform:none}
+
+.container{max-width:1120px;
+           margin:0 auto;
+           padding:36px 20px 60px}
+
+.progress-wrap{max-width:760px;
+                margin:0 auto 26px}
+
+.progress-label{display:flex;
+                justify-content:space-between;
+                font-size:.88rem;
+                font-weight:700;
+                margin-bottom:8px}
+
+.progress{height:8px;background:#d7dfd5;
+        border-radius:20px;
+        overflow:hidden}
+
+.progress>div{height:100%;
+              width:0;background:var(--teal);
+              transition:width .2s}
+
+.panel{max-width:760px;
+        margin:auto;
+        background:var(--paper);
+        border:1px solid #e5e0d3;
+        border-radius:24px;
+        padding:clamp(22px,5vw,42px);
+        box-shadow:0 12px 36px rgba(32,59,57,.08)}
+
+.panel h2{font-size:clamp(1.5rem,3vw,2.2rem);
+          line-height:1.15;
+          margin:0 0 12px}
+
+.muted{color:#5c716d}
+
+.question-number{color:var(--teal);
+                font-weight:800;
+                text-transform:uppercase;
+                font-size:.8rem;
+                letter-spacing:.12em;
+                margin-bottom:10px}
+
+.answers{display:grid;
+        gap:12px;
+        margin:26px 0}
+
+.answer{display:flex;
+        align-items:flex-start;
+        gap:12px;
+        border:2px solid #dfe7df;
+        border-radius:15px;
+        padding:15px 16px;
+        background:#fff;
+        cursor:pointer;
+        transition:border .15s,background .15s}
+
+.answer:hover{border-color:var(--teal)}
+
+.answer.selected{border-color:var(--teal);
+                  background:#eaf5f1}
+
+.answer input{accent-color:var(--teal);
+              margin-top:5px;
+              flex-shrink:0}
+
+.actions{display:flex;
+          justify-content:space-between;
+          gap:12px;
+          margin-top:20px}
+
+.result-grid{display:grid;
+              grid-template-columns:1fr 1fr;
+              gap:26px;
+              align-items:center}
+
+.result-image{width:100%;
+              aspect-ratio:4/3;
+              object-fit:cover;
+              border-radius:18px;
+              background:var(--sea)}
+
+.result-kicker{font-size:.8rem;
+              letter-spacing:.12em;
+              text-transform:uppercase;
+              color:var(--teal);
+              font-weight:800}
+
+.result-title{font-size:clamp(2rem,4vw,3rem);
+              line-height:1.05;
+              margin:8px 0 14px}
+
+.result-quote{border-left:4px solid var(--coral);
+              padding:8px 0 8px 16px;
+              font-weight:650;
+              margin:20px 0}
+
+.form-field{display:grid;
+            gap:7px;
+            margin:18px 0}
+
+.form-field label{font-weight:750}
+
+.form-field textarea,
+
+.form-field input{width:100%;
+                  border:2px solid #dfe7df;
+                  border-radius:12px;
+                  padding:13px 14px;
+                  background:white;
+                  color:var(--ink)}
+
+.form-field textarea{min-height:130px;
+                     resize:vertical}
+
+.form-field textarea:focus,.form-field input:focus{outline:3px solid #b7ded4;
+                                                   border-color:var(--teal)}
+
+.wall-head{display:flex;
+            justify-content:space-between;
+            align-items:end;gap:18px;
+            flex-wrap:wrap;
+            margin-bottom:22px}
+
+.wall-head h2{font-size:clamp(2rem,4vw,3rem);
+              margin:0}
+
+.wall-grid{display:grid;
+           grid-template-columns:repeat(auto-fit,minmax(215px,1fr));
+           gap:18px;
+           align-items:start}
+
+.sticky{min-height:205px;
+        padding:22px 19px 18px;
+        position:relative;
+        border-radius:3px 3px 8px 3px;
+        box-shadow:2px 7px 14px rgba(32,59,57,.13);
+        transform:rotate(var(--tilt));
+        overflow-wrap:anywhere;
+        transition:transform .18s}
+
+.sticky:hover{transform:rotate(0deg) translateY(-3px)}
+
+.sticky:before{content:"";
+              position:absolute;
+              top:9px;
+              left:50%;
+              transform:translateX(-50%);
+              width:11px;
+              height:11px;
+              border-radius:50%;
+              background:#14635B;
+              box-shadow:1px 2px 2px #0002}
+
+.sticky p{margin:10px 0 22px;
+          font-size:1.04rem;
+          font-weight:650;
+          white-space:pre-wrap}
+
+.sticky .pledge-type{display:inline-block;
+                    font-size:.72rem;
+                    font-weight:850;
+                    text-transform:uppercase;
+                    letter-spacing:.08em;
+                    border:1px solid var(--ink);
+                    border-radius:20px;
+                    padding:4px 8px}
+
+.sticky .signature{font-size:.84rem;
+                   color:var(--deep);
+                   margin-top:auto}
+
+.empty{border:2px dashed #b8cbc1;
+      border-radius:18px;
+      padding:36px;
+      text-align:center;
+      color:var(--deep);
+      grid-column:1/-1}
+      
+.wall-note{font-size:.88rem;
+          color:#60736d;
+          margin-top:20px}
+
+.footer{background:#e4e9dc;
+        text-align:center;
+        padding:24px;
+        color:#49645e;
+        font-size:.85rem}
+
+.hidden{display:none!important}
+
+.error{color:#a53d2b;
+      font-weight:700;
+      margin-top:10px}
+
+.success{color:#176b4d;
+        font-weight:750;
+        margin-top:10px}
+
+.small{font-size:.88rem}
+
+@media(max-width:650px){
+  .header-tag{display:none}
+  .result-grid{grid-template-columns:1fr}
+  .result-image{aspect-ratio:16/9}
+  .actions{flex-wrap:wrap}
+  .actions .button{flex:1}
+  .wall-grid{grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px}
+  .sticky{padding:19px 14px 15px;min-height:190px}.hero{padding-top:54px;padding-bottom:58px}}
+
+
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="https://stonelivinglab.org/" target="_blank" aria-label="Climate Pledge Wall home">
+    <img
+      src="/images/LivingLab_logo_white_RGB.png"
+      alt = "Stone Living Lab Logo"
+      class="site-logo"
+    >
+    <span class="site-title">SLL Climate Personality Quiz</span>
+  </a>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">
+      How will you use your strengths?</div>
+      
+      <h1>What is your climate personality?</h1>
+      
+      <p>Discover your climate personality and add a climate pledge to our pledge wall.</p>
+      
+      <button class="button" id="startBtn">Take the quiz ↓</button>
+      <button class="button secondary" id="viewWallBtn">Visit the pledge wall →</button>
+
+    </div>
+  </section>
+
+<main class="container">
+
+<section id="quizSection" class="hidden" aria-live="polite">
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span id="progressText">Question 1 of 5</span>
+      <span id="progressPct">20%</span>
+    </div>
+    <div class="progress">
+      <div id="progressBar"></div>
+    </div>
+  </div>
+  
+  <div class="panel">
+    <div class="question-number" id="qNumber">Question 1</div>
+    <h2 id="questionTitle"></h2>
+    <p class="muted" id="questionHelp">Choose the answer that feels most like you.</p>
+    <div class="answers" id="answerList"></div>
+    <div class="actions">
+      <button class="button secondary" id="backBtn">← Back</button>
+      <button class="button" id="nextBtn" disabled>Next →</button>
+    </div>
+    
+    <div class="error hidden" id="quizError">Please choose an answer to continue.</div>
+  </div>
+</section>
+
+<section id="resultSection" class="hidden" aria-live="polite">
+  <div class="panel">
+    <div class="result-grid">
+      <img id="resultImage" class="result-image" alt="Climate result photograph"/><div>
+        <div class="result-kicker">Your climate personality</div>
+        <h2 class="result-title" id="resultTitle"></h2>
+        <p id="resultDescription"></p><div class="result-quote" id="resultStrength">
+        </div>
+        <button class="button secondary" id="retakeBtn">Retake quiz</button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="panel" style="margin-top:22px">
+    <div class="question-number">Your next step</div>
+    <h2>Make a climate pledge</h2>
+    <p class="muted">Choose an action you can take. Your pledge will appear on the wall with your climate personality.</p>
+    <form id="pledgeForm">
+      <div class="form-field">
+        <label for="pledgeInput">My pledge is to…</label>
+        <textarea id="pledgeInput" maxlength="280" required placeholder="For example: I will bring a reusable water bottle instead of buying bottled water."></textarea>
+        <div class="small muted">
+          <span id="charCount">0</span>/280 characters</div>
+        </div>
+        <div class="form-field"><label for="nameInput">Name (optional)</label>
+          <input id="nameInput" maxlength="40" placeholder="e.g., Sam, Grade 6, or leave blank"/>
+        </div>
+        <button class="button" type="submit">Add my pledge to the wall →</button>
+        <div id="pledgeError" class="error hidden">
+        </div>
+      </form>
+    </div>
+  </section>
+<section id="wallSection" class="hidden" aria-live="polite">
+  <div class="wall-head"><div>
+    <div class="eyebrow" style="color:var(--teal)">Together, we make a difference</div>
+    <h2>Our Climate Pledge Wall</h2>
+  </div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap">
+    <button class="button secondary" id="refreshWallBtn">↻ Refresh wall</button>
+    <button class="button secondary" id="newPledgeBtn">＋ Add another pledge</button>
+  </div>
+</div>
+<div class="wall-grid" id="pledgeWall"></div>
+<p class="wall-note" id="wallNote"></p>
+<div style="text-align:center;margin-top:28px">
+  <button class="button" id="startOverBtn">Take the quiz again</button>
+</div>
+</section>
+
+</main>
+<script>
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxP607jRUfsI4JJEWNAZY97rcjS04Z_1xtmnQhSLanERN-qr8CrL73lsnLdZamEzS8Mmw/exec';
+const DEMO_MODE = !GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes('PASTE_YOUR_');
+
+const results = {
+  
+  planner:{title:'The Planner',
+           description:'I like to understand the entire problem in order to solve it. I will patiently work until I feel satisfied, even if it gets tough.',strength:'Your superpower: problem solving',
+           image:'images/shark.jpeg',
+           color:'#d7e9bc'},
+  gatherer:{title:'The Social Gatherer',
+            description:'I love to understand multiple perspectives and bring people together. While I might not see every detail, I am are able to understand the big picture and choose the best people for each task.',
+            strength:'Your superpower: creating teams',
+            image:'images/plankton.jpeg',
+            color:'#f7d979'},
+  creative:{title:'The Creative',
+            description:'I don’t see the world in black and white, which means I don’t see challenges that way either. I’m great at finding unique approaches to problem-solving.',
+            strength:'Your superpower: unique solutions',
+            image:'images/lobster.jpeg',
+            color:'#f5b7a0'},
+  mediator:{title:'The Mediator',
+            description:'A skilled communicator, I am able to find common ground that makes the best of a worst situation. My trustworthiness, relatability, and ability to compromise makes me a natural leader.',
+            strength:'Your superpower: communication',
+            image:'images/bass.jpeg',
+            color:'#b9dcd8'}
+};
+const questions = [
+ {q:'When I’m faced with a problem I:',
+  a:[['planner','Take time to understand the situation fully before even beginning to think of solutions. '],
+     ['gatherer','Go to my friends and family to ask for their advice.'],
+     ['creative','I don’t see problems, just opportunities to experiment with new solutions!'],
+     ['mediator','Consider all possible solutions and how they will affect the people around me.']]},
+
+ {q:'I unwind after a long day by:',
+  a:[['planner','Setting my alarm clock and checking my calendar for tomorrow to make sure I’m prepared.'],
+     ['gatherer','Talking on the phone with friends or family, sometimes later than I planned to! '],
+     ['creative','Working on my most recent craft project.'],
+     ['mediator','Organizing a group picnic.']]},
+ {q:'I feel most like myself when: ',
+  a:[['planner','I have time to relax in a calm and clean space.'],
+     ['gatherer','I’m hosting a party and get to introduce all my friends to each other.'],
+     ['creative','I’m trying out a new hobby or learning a new skill.'],
+     ['mediator','I get to help out a friend.']]},
+ {q:'When I think about the future: ',
+  a:[['planner','I feel calm: I have goals and a plan to reach them.'],
+     ['gatherer','I feel hopeful: I get to watch my community grow and meet new people.'],
+     ['creative','I feel excited: each potential challenge is an opportunity to learn new things.'],
+     ['mediator','I feel prepared: if I don’t know how to do something, I know somebody who does.']]},
+ {q:'The native Boston Harbor animal I relate to most is:',
+  a:[['planner','A White Shark, my impressive eyesight would let me see and plan my next move!'],
+     ['gatherer','Phytoplankton, I bloom with others!'],
+     ['creative','An American Lobster, I would create burrows and habitats to survive!'],
+     ['mediator','A Striped Bass, I would have a blast migrating upstream with my fellow fish!']]}
+];
+
+let current=0, answers=[], currentResult=null;
+const $=id=>document.getElementById(id);
+function showSection(id){['quizSection','resultSection','wallSection'].forEach(s=>$(s).classList.toggle('hidden',s!==id));}
+
+function beginQuiz(){current=0;answers=[];renderQuestion();showSection('quizSection');$('quizSection').scrollIntoView({behavior:'smooth',block:'start'});}
+
+function renderQuestion(){const q=questions[current];$('qNumber').textContent=`Question ${current+1}`;$('questionTitle').textContent=q.q;$('progressText').textContent=`Question ${current+1} of ${questions.length}`;$('progressPct').textContent=`${Math.round((current+1)/questions.length*100)}%`;$('progressBar').style.width=`${(current+1)/questions.length*100}%`;$('answerList').innerHTML='';q.a.forEach(([key,label],i)=>{const lab=document.createElement('label');lab.className='answer'+(answers[current]===key?' selected':'');lab.innerHTML=`<input type="radio" name="answer" value="${key}" ${answers[current]===key?'checked':''}><span>${label}</span>`;lab.querySelector('input').addEventListener('change',()=>{answers[current]=key;document.querySelectorAll('.answer').forEach(n=>n.classList.remove('selected'));lab.classList.add('selected');$('nextBtn').disabled=false;$('quizError').classList.add('hidden');});$('answerList').appendChild(lab)});$('backBtn').disabled=current===0;$('nextBtn').textContent=current===questions.length-1?'See my result →':'Next →';$('nextBtn').disabled=!answers[current];}
+
+function finishQuiz(){const scores={planner:0,gatherer:0,creative:0,mediator:0};answers.forEach(a=>scores[a]++);const max=Math.max(...Object.values(scores));const tied=Object.keys(scores).filter(k=>scores[k]===max);currentResult=tied[Math.floor(Math.random()*tied.length)];const r=results[currentResult];$('resultImage').src=r.image;$('resultImage').alt=r.title;$('resultTitle').textContent=r.title;$('resultDescription').textContent=r.description;$('resultStrength').textContent=r.strength;$('pledgeInput').value='';$('nameInput').value='';$('charCount').textContent='0';showSection('resultSection');$('resultSection').scrollIntoView({behavior:'smooth',block:'start'});}
+
+let cachedPledges = [];
+
+function jsonp(url){
+  return new Promise((resolve,reject)=>{
+    const callbackName='climatePledgeCb_'+Math.random().toString(36).slice(2);
+    const script=document.createElement('script');
+    const timer=setTimeout(()=>{cleanup();reject(new Error('The Google Sheet did not respond. Check the Apps Script deployment URL and access settings.'));},15000);
+    function cleanup(){clearTimeout(timer);delete window[callbackName];script.remove();}
+    window[callbackName]=(data)=>{cleanup();resolve(data);};
+    script.onerror=()=>{cleanup();reject(new Error('Could not connect to the Google Sheets service.'));};
+    script.src=url+(url.includes('?')?'&':'?')+'action=list&callback='+callbackName+'&_='+Date.now();
+    document.body.appendChild(script);
+  });
+}
+async function loadPledges(){
+  if(DEMO_MODE){
+    try{cachedPledges=JSON.parse(localStorage.getItem('climatePledgeWall_demo')||'[]')}catch(e){cachedPledges=[]}
+    $('wallNote').textContent='Preview mode: add your deployed Apps Script URL in the HTML to share pledges across devices.';
+    return cachedPledges;
+  }
+  const data=await jsonp(GOOGLE_SCRIPT_URL);
+  if(!data || data.ok!==true) throw new Error(data?.error || 'The pledge service returned an unexpected response.');
+  cachedPledges=(data.pledges||[]).map(p=>({
+    pledge:p.pledge||'',name:p.name||'',result:p.result||'',resultTitle:p.resultTitle||'Climate Changemaker',
+    color:p.color||'',createdAt:p.timestamp||''
+  }));
+  return cachedPledges;
+}
+async function savePledge(item){
+  if(DEMO_MODE){
+    const items=cachedPledges.concat([item]);
+    localStorage.setItem('climatePledgeWall_demo',JSON.stringify(items));
+    cachedPledges=items;
+    return;
+  }
+  const body=new URLSearchParams({
+    action:'add',pledge:item.pledge,name:item.name,result:item.result,
+    resultTitle:item.resultTitle,color:item.color
+  });
+  // Apps Script accepts a simple form POST; no-cors avoids a browser preflight.
+  await fetch(GOOGLE_SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},body:body.toString()});
+  // no-cors responses are opaque, so confirm the new row by reloading the sheet.
+  await new Promise(resolve=>setTimeout(resolve,1200));
+  await loadPledges();
+  const confirmed=cachedPledges.some(p=>p.pledge===item.pledge && p.name===item.name && p.result===item.result);
+  if(!confirmed) throw new Error('The pledge was not found in the Sheet after saving. Check the Apps Script deployment and permissions, then try again.');
+}
+async function renderWall(){
+  const wall=$('pledgeWall');
+  wall.innerHTML='<div class="empty">Loading the pledge wall…</div>';
+  try{
+    const items=await loadPledges();
+    wall.innerHTML='';
+    if(!items.length){
+      wall.innerHTML='<div class="empty"><strong>The wall is ready for its first pledge.</strong><br>Take the quiz and add your promise to get things started.</div>';
+    }else{
+      items.slice().reverse().forEach((p,i)=>{
+        const card=document.createElement('article');card.className='sticky';
+        card.style.background=p.color||['#f7df83','#cde5c5','#f4c1ad','#c8e6e3','#e4d7f3'][i%5];
+        card.style.setProperty('--tilt',`${[-1.2,.8,-.5,1.1,.3][i%5]}deg`);
+        const pledge=document.createElement('p');pledge.textContent='“'+p.pledge+'”';
+        const tag=document.createElement('span');tag.className='pledge-type';tag.textContent=p.resultTitle||'Anonymous';
+        const sign=document.createElement('div');sign.className='signature';sign.textContent=`— ${p.name||'Anonymous'}`;
+        card.append(pledge,tag,document.createElement('br'),sign);wall.appendChild(card);
+      });
+    }
+    $('wallNote').textContent=DEMO_MODE
+      ? `${items.length} pledge${items.length===1?'':'s'} in this browser preview.`
+      : `${items.length} shared pledge${items.length===1?'':'s'}.`;
+  }catch(err){
+    wall.innerHTML='<div class="empty"><strong>We couldn’t load the pledge wall.</strong><br>'+escapeHtml(err.message)+'</div>';
+    $('wallNote').textContent='Check the Apps Script URL, deployment permissions, and sheet setup.';
+  }
+}
+function escapeHtml(value){return String(value).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
+$('startBtn').addEventListener('click',beginQuiz);$('backBtn').addEventListener('click',()=>{if(current>0){current--;renderQuestion()}});
+
+$('viewWallBtn').addEventListener('click',async()=>{
+  showSection('wallSection');
+  $('wallSection').scrollIntoView({behavior:'smooth',block:'start'});
+  await renderWall();
+});
+
+$('nextBtn').addEventListener('click',()=>{if(!answers[current]){$('quizError').classList.remove('hidden');return}if(current<questions.length-1){current++;renderQuestion()}else finishQuiz()});$('retakeBtn').addEventListener('click',beginQuiz);$('pledgeInput').addEventListener('input',()=> $('charCount').textContent=$('pledgeInput').value.length);
+$('pledgeForm').addEventListener('submit',async e=>{e.preventDefault();const pledge=$('pledgeInput').value.trim();if(!pledge){$('pledgeError').textContent='Please write a pledge before submitting.';$('pledgeError').classList.remove('hidden');return}const r=results[currentResult];const submitBtn=$('pledgeForm').querySelector('button[type="submit"]');submitBtn.disabled=true;submitBtn.textContent='Saving your pledge…';$('pledgeError').classList.add('hidden');const item={pledge,name:$('nameInput').value.trim(),result:currentResult,resultTitle:r.title,color:r.color,createdAt:new Date().toISOString()};try{await savePledge(item);await renderWall();showSection('wallSection');$('wallSection').scrollIntoView({behavior:'smooth',block:'start'});}catch(err){$('pledgeError').textContent='Your pledge could not be saved: '+err.message;$('pledgeError').classList.remove('hidden');}finally{submitBtn.disabled=false;submitBtn.textContent='Add my pledge to the wall →';}});$('newPledgeBtn').addEventListener('click',()=>{if(!currentResult){beginQuiz()}else{showSection('resultSection');$('resultSection').scrollIntoView({behavior:'smooth',block:'start'})}});$('refreshWallBtn').addEventListener('click',renderWall);$('startOverBtn').addEventListener('click',beginQuiz);
+</script>
+</body>
+</html>
