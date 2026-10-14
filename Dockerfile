@@ -1,5 +1,8 @@
 FROM nginx:alpine
 
+# Remove the default Nginx website
+RUN rm -rf /usr/share/nginx/html/*
+
 # Copy your static HTML/JS/CSS files into the default Nginx public directory
 COPY . /usr/share/nginx/html
 
