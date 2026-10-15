@@ -457,29 +457,28 @@ button{cursor:pointer}
 </main>
 <script>
 const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxP607jRUfsI4JJEWNAZY97rcjS04Z_1xtmnQhSLanERN-qr8CrL73lsnLdZamEzS8Mmw/exec';
-const DEMO_MODE = !GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes('PASTE_YOUR_');
 
 const results = {
   
   planner:{title:'The Planner',
            description:'I like to understand the entire problem in order to solve it. I will patiently work until I feel satisfied, even if it gets tough.',strength:'Your superpower: problem solving',
            image:'images/shark.jpeg',
-           color:'#d7e9bc'},
+           color:'#ffcccc'},
   gatherer:{title:'The Social Gatherer',
             description:'I love to understand multiple perspectives and bring people together. While I might not see every detail, I am are able to understand the big picture and choose the best people for each task.',
             strength:'Your superpower: creating teams',
             image:'images/plankton.jpeg',
-            color:'#f7d979'},
+            color:'#fff8cc'},
   creative:{title:'The Creative',
             description:'I don’t see the world in black and white, which means I don’t see challenges that way either. I’m great at finding unique approaches to problem-solving.',
             strength:'Your superpower: unique solutions',
             image:'images/lobster.jpeg',
-            color:'#f5b7a0'},
+            color:'#d8ffc9'},
   mediator:{title:'The Mediator',
             description:'A skilled communicator, I am able to find common ground that makes the best of a worst situation. My trustworthiness, relatability, and ability to compromise makes me a natural leader.',
             strength:'Your superpower: communication',
             image:'images/bass.jpeg',
-            color:'#b9dcd8'}
+            color:'#c9e5ff'}
 };
 const questions = [
  {q:'When I’m faced with a problem I:',
@@ -535,11 +534,7 @@ function jsonp(url){
   });
 }
 async function loadPledges(){
-  if(DEMO_MODE){
-    try{cachedPledges=JSON.parse(localStorage.getItem('climatePledgeWall_demo')||'[]')}catch(e){cachedPledges=[]}
-    $('wallNote').textContent='Preview mode: add your deployed Apps Script URL in the HTML to share pledges across devices.';
-    return cachedPledges;
-  }
+ 
   const data=await jsonp(GOOGLE_SCRIPT_URL);
   if(!data || data.ok!==true) throw new Error(data?.error || 'The pledge service returned an unexpected response.');
   cachedPledges=(data.pledges||[]).map(p=>({
@@ -549,12 +544,7 @@ async function loadPledges(){
   return cachedPledges;
 }
 async function savePledge(item){
-  if(DEMO_MODE){
-    const items=cachedPledges.concat([item]);
-    localStorage.setItem('climatePledgeWall_demo',JSON.stringify(items));
-    cachedPledges=items;
-    return;
-  }
+  
   const body=new URLSearchParams({
     action:'add',pledge:item.pledge,name:item.name,result:item.result,
     resultTitle:item.resultTitle,color:item.color
@@ -586,9 +576,7 @@ async function renderWall(){
         card.append(pledge,tag,document.createElement('br'),sign);wall.appendChild(card);
       });
     }
-    $('wallNote').textContent=DEMO_MODE
-      ? `${items.length} pledge${items.length===1?'':'s'} in this browser preview.`
-      : `${items.length} shared pledge${items.length===1?'':'s'}.`;
+  
   }catch(err){
     wall.innerHTML='<div class="empty"><strong>We couldn’t load the pledge wall.</strong><br>'+escapeHtml(err.message)+'</div>';
     $('wallNote').textContent='Check the Apps Script URL, deployment permissions, and sheet setup.';
