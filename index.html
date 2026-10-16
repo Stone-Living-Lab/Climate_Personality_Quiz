@@ -16,11 +16,32 @@
       --paper:#fffdf7}
 
 *{box-sizing:border-box}
+/* Register font */
+/* New — Replica (non-mono) for body text */
+@font-face {
+  font-family: 'Replica LL TT';
+  src: url('ReplicaLLTT-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 
+@font-face {
+  font-family: 'Replica LL TT';
+  src: url('ReplicaLLTT-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Replica LL TT';
+  src: url('ReplicaLLTT-Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
 body{margin:0;
     background:var(--sand);
     color:var(--ink);
-    font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    font-family: 'Replica LL TT', sans-serif;
     line-height:1.5}
 
 button,input,textarea{font:inherit}
@@ -354,7 +375,7 @@ button{cursor:pointer}
 <header class="site-header">
   <a class="brand" href="https://stonelivinglab.org/" target="_blank" aria-label="Climate Pledge Wall home">
     <img
-      src="/images/LivingLab_logo_white_RGB.png"
+      src= 'images/LivingLab_logo_white_RGB.png'
       alt = "Stone Living Lab Logo"
       class="site-logo"
     >
